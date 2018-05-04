@@ -20,26 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-### Use the Authenticate
+### Web Client
 
 ```ruby
-Taskworld.configure do |config|
-  config.server = 'Asia'
+Taskworld::Client.configure do |config|
+  config.server = :usa
+  config.email = 'boyd.bankfein@goldmangoose.com'
+  config.password = 'm0reM0n1th@nG0D!'
 end
 ```
 
-### Web Client
-
 #### Get all projects
 ```ruby
-client = Taskworld::Web::Client.new(access_token: access_token)
-client.project_get_all
+client = Taskworld::Client.new
+client.project_get_all(space_id: '59eecc4bb0a6a6bc83f5fc39')
 ```
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/yshimada0330/taskworld. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
