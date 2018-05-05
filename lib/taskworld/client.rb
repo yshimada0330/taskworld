@@ -4,12 +4,6 @@ module Taskworld
     include Request
     include Endpoints
 
-    ENDPOINTS = {
-      asia: 'asia-api.taskworld.com',
-      europe: 'europe-api.taskworld.com',
-      usa: 'api.taskworld.com'
-    }.freeze
-
     attr_accessor :endpoint, :access_token, :default_space_id, :workspaces
 
     class << self
@@ -23,7 +17,7 @@ module Taskworld
     end
 
     def initialize
-      @endpoint ||= ENDPOINTS.fetch(Config.server, 'api.taskworld.com')
+      @endpoint ||= Config::ENDPOINTS.fetch(Config.server, Config::DEFAULT_ENDPONT)
       auth
     end
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Taskworld::Config do
+RSpec.xdescribe Taskworld::Config do
   describe '#configure' do
     let(:server) { 'Asia' }
     before do
