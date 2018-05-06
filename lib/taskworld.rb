@@ -1,5 +1,11 @@
-require "taskworld/version"
+require 'taskworld/version'
 
-module Taskworld
-  # Your code goes here...
-end
+require 'faraday'
+require 'faraday_middleware'
+require 'json'
+
+require 'taskworld/config'
+require 'taskworld/connection'
+require 'taskworld/request'
+require 'taskworld/endpoints'
+require 'taskworld/client'
