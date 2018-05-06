@@ -1,4 +1,6 @@
 # Taskworld
+[![Gem Version](https://badge.fury.io/rb/taskworld.svg)](https://badge.fury.io/rb/taskworld)
+ [![Build Status](https://travis-ci.org/yshimada0330/taskworld.svg?branch=master)](https://travis-ci.org/yshimada0330/taskworld)
 
 A Ruby client for the Taskworld [Web](https://api.taskworld.com/) APIs.
 
