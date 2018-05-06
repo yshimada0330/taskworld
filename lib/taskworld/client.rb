@@ -30,5 +30,12 @@ module Taskworld
       @default_space_id = response['default_space_id']
       @workspaces = response['workspaces']
     end
+
+    def call_required_field_api(required_fields, options)
+      required_fields.each do |field|
+        throw ArgumentError.new("Required arguments :#{field} missing") if options[field].nil?
+      end
+      yield
+    end
   end
 end
