@@ -12,7 +12,7 @@ RSpec.describe Taskworld::Endpoints::Project do
           'projects' => [
             {
               'space_id' => '59eecc5eb0a6a6bc832ea68f',
-              'project_id' => '59eecc5eb0a6a6bc832ea68f',
+              'project_id' => space_id,
               'owner_id'=> '59eecc68b0a6a6bc832ac1fb',
               'title'=> 'Due diligence',
               'description'=> 'a private project of Goldman Goose',
@@ -27,6 +27,7 @@ RSpec.describe Taskworld::Endpoints::Project do
           ]
         }
       end
+
       before do
         WebMock.enable!
         WebMock.stub_request(:post, 'https://api.taskworld.com/v1/project.get-all').

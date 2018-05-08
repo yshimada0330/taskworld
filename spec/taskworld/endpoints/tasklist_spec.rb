@@ -1,24 +1,49 @@
 require 'spec_helper'
 
-RSpec.describe Taskworld::Endpoints::Task do
+RSpec.describe Taskworld::Endpoints::Tasklist do
   let(:client) { Taskworld::Client.new }
+  let(:space_id) { '59eecc4bb0a6a6bc83f5fc39' }
+  let(:project_id) { '59eecc5eb0a6a6bc832ea68f' }
 
-  describe '#task_get', :authenticate_user do
-    subject{ client.task_get(options)  }
-    context 'ArgumentError' do
-      context 'empty space_id' do
-        let(:options) { {} }
-        it 'requires space_id error' do
-          expect { subject }.to raise_error ArgumentError, /Required arguments :space_id missing/
-        end
+  describe '#tasklist_get_all', :authenticate_user do
+    context 'Success' do
+      let(:response) do
+        {
+          'ok' => true,
+          'tasklists' => [
+            {
+              'list_id' => '59eecc80b0a6a6bc833a7953',
+              'owner_id' => '59eecc68b0a6a6bc832ac1fb',
+              'space_id' => space_id,
+              'project_id' => project_id,
+              'title' => 'New tasklist',
+              'is_deleted' => false,
+              'tasks' => [
+                '59eecc75b0a6a6bc83217ba1',
+                '59eecc78b0a6a6bc831a5a9f'
+              ],
+              'type' => 0,
+              'created' => '2017-09-01T23 =>00 =>00.000Z',
+              'updated' => '2017-09-01T23 =>00 =>00.000Z',
+              'is_private' => false,
+              'is_inbox' => false
+            }
+          ]
+        }
       end
 
-      context 'empty task_id' do
-        let(:options) { { space_id: 'xxx'} }
-        it 'requires task_id error' do
-          expect { subject }.to raise_error ArgumentError, /Required arguments :task_id missing/
-        end
+      before do
+        WebMock.enable!
+        WebMock.stub_request(:post, 'https://api.taskworld.com/v1/tasklist.get-all').
+          with(body: /project_id=#{project_id}&space_id=#{space_id}/).
+          to_return(
+            body: JSON.generate(response),
+            status: 200,
+            headers: { 'Content-Type' =>  'application/json' })
       end
+
+      subject{ client.tasklist_get_all(space_id: space_id, project_id: project_id) }
+      it { expect(subject).to eq response }
     end
   end
 end
