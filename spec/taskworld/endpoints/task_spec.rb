@@ -22,15 +22,15 @@ RSpec.describe Taskworld::Endpoints::Task do
                 'is_assignee' => false
               }
             ],
-            'checklist' => [
-              '59ef15e98bdce06ecbad90b9',
-              '59ef15ec8bdce06ecbad90bb',
-              '59ef15ee8bdce06ecbad90bd'
+            'checklist' => %w[
+              59ef15e98bdce06ecbad90b9
+              59ef15ec8bdce06ecbad90bb
+              59ef15ee8bdce06ecbad90bd
             ],
-            'tags' => [
-              '59e471b2fd3f50b21074ec6e',
-              '59e471b2fd3f50b21074ec6b',
-              '59e471b2fd3f50b21074ec68'
+            'tags' => %w[
+              59e471b2fd3f50b21074ec6e
+              59e471b2fd3f50b21074ec6b
+              59e471b2fd3f50b21074ec68
             ],
             'comments_count' => 5,
             'color' => 1,
@@ -48,15 +48,16 @@ RSpec.describe Taskworld::Endpoints::Task do
 
       before do
         WebMock.enable!
-        WebMock.stub_request(:post, 'https://api.taskworld.com/v1/task.get').
-          with(body: /space_id=#{space_id}&task_id=#{task_id}/).
-          to_return(
-            body: JSON.generate(response),
-            status: 200,
-            headers: { 'Content-Type' =>  'application/json' })
+        WebMock.stub_request(:post, 'https://api.taskworld.com/v1/task.get')
+               .with(body: /space_id=#{space_id}&task_id=#{task_id}/)
+               .to_return(
+                 body: JSON.generate(response),
+                 status: 200,
+                 headers: { 'Content-Type' => 'application/json' }
+               )
       end
 
-      subject{ client.task_get(space_id: space_id, task_id: task_id) }
+      subject { client.task_get(space_id: space_id, task_id: task_id) }
       it { expect(subject).to eq response }
     end
   end

@@ -18,9 +18,9 @@ RSpec.describe Taskworld::Endpoints::Tasklist do
               'project_id' => project_id,
               'title' => 'New tasklist',
               'is_deleted' => false,
-              'tasks' => [
-                '59eecc75b0a6a6bc83217ba1',
-                '59eecc78b0a6a6bc831a5a9f'
+              'tasks' => %w[
+                59eecc75b0a6a6bc83217ba1
+                59eecc78b0a6a6bc831a5a9f
               ],
               'type' => 0,
               'created' => '2017-09-01T23 =>00 =>00.000Z',
@@ -34,15 +34,16 @@ RSpec.describe Taskworld::Endpoints::Tasklist do
 
       before do
         WebMock.enable!
-        WebMock.stub_request(:post, 'https://api.taskworld.com/v1/tasklist.get-all').
-          with(body: /project_id=#{project_id}&space_id=#{space_id}/).
-          to_return(
-            body: JSON.generate(response),
-            status: 200,
-            headers: { 'Content-Type' =>  'application/json' })
+        WebMock.stub_request(:post, 'https://api.taskworld.com/v1/tasklist.get-all')
+               .with(body: /project_id=#{project_id}&space_id=#{space_id}/)
+               .to_return(
+                 body: JSON.generate(response),
+                 status: 200,
+                 headers: { 'Content-Type' => 'application/json' }
+               )
       end
 
-      subject{ client.tasklist_get_all(space_id: space_id, project_id: project_id) }
+      subject { client.tasklist_get_all(space_id: space_id, project_id: project_id) }
       it { expect(subject).to eq response }
     end
   end
