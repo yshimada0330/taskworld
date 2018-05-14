@@ -3,10 +3,10 @@ module Taskworld
     module Task
       def task_create(space_id:, project_id:, list_id:, title:, **options)
         post('task.create',
-              options.merge(space_id: space_id,
-                            project_id: project_id,
-                            list_id: list_id,
-                            title: title))
+             options.merge(space_id: space_id,
+                           project_id: project_id,
+                           list_id: list_id,
+                           title: title))
       end
 
       def task_get(space_id:, task_id:, **options)

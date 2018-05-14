@@ -5,11 +5,11 @@ module Taskworld
         post('checklist.add-item', options.merge(task_id: task_id, title: title))
       end
 
-      def task_delete_item(task_id:, checklist_item_id:, **options)
+      def checklist_delete_item(task_id:, checklist_item_id:, **options)
         post('checklist.delete-item', options.merge(task_id: task_id, checklist_item_id: checklist_item_id))
       end
 
-      def task_delete(task_id:, checklist_item_id:, **options)
+      def checklist_update_item(task_id:, checklist_item_id:, **options)
         post('checklist.update-item', options.merge(task_id: task_id, checklist_item_id: checklist_item_id))
       end
     end
