@@ -11,6 +11,8 @@ module Taskworld
 
     attr_accessor :server, :email, :password
 
+    module_function
+
     def reset
       self.server = nil
       self.email = nil
